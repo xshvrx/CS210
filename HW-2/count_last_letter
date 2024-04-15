@@ -1,0 +1,23 @@
+# Question 4
+# Write a program that reads words passing from a string parameter and create a dictionary mapping last letters to the number of words ending with that letter.
+
+# For example, the string is 'apple banana orange grape cherry', the program will
+# out put a dictionary fruitName that
+
+# print(fruitName)
+# will give us output
+
+{'e': 3, 'a': 1, 'y': 1}
+def count_last_letter(words):
+    counts = {}
+    # Split the input into words
+    word_list = words.split()
+
+    for word in word_list:
+        # Get the last letter of each word
+        last_letter = word[-1].lower()
+        # Check if the last letter is a valid alphabet letter
+        if last_letter.isalpha():
+            # Update the dictionary with the last letter count
+            counts[last_letter] = counts.get(last_letter, 0) + 1
+    return counts
