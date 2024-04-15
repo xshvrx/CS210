@@ -1,4 +1,3 @@
-# Question 4
 # Write a program that reads words passing from a string parameter and create a dictionary mapping last letters to the number of words ending with that letter.
 
 # For example, the string is 'apple banana orange grape cherry', the program will
