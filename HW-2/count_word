@@ -27,5 +27,3 @@ def count_word(filename):
 
     for word, count in sorted_words:
         print(f"{word}:{count}")
-# Your output should look like this
-count_word('words2.txt')
