@@ -1,0 +1,58 @@
+# Write a program that reads the numpy array roster we just created that has this format:
+
+# name,age,major,gpa
+
+# Convert this to a numpy array as shown above. Then use that array
+# to compute and print each of the following:
+
+# The average GPA of all students
+# The maximum GPA of students majoring in CS
+# The number of students with a GPA over 3.5
+# The average GPA of students who are at least 25 years old
+# The major that has the highest average GPA among students at most 22 years old
+# For example, for the four students listed, your program should print:
+
+# 3.625
+# 3.8
+# 2
+# 3.35
+# Chem
+
+import numpy as np
+
+def analyze_roster(roster_data):
+    # Calculate the average GPA of all students
+    average_gpa = np.mean(roster_data['gpa'])
+    # Calculate the maximum GPA of students majoring in CS
+    cs_major_gpa = roster_data[roster_data['major'] == 'CS']['gpa']
+    max_cs_gpa = np.max(cs_major_gpa)
+    # Count the number of students with a GPA over 3.5
+    students_over_3_5 = np.sum(roster_data['gpa'] > 3.5)
+    # Calculate the average GPA of students who are at least 25 years old
+    average_gpa_over_25 = np.mean(roster_data[roster_data['age'] >= 25]['gpa'])
+
+    # Find the major that has the highest average GPA among students at most 22 years old
+    max_avg_gpa = -1.0
+    best_major = None
+
+    for major in np.unique(roster_data['major']):
+        relevant_students = roster_data[(roster_data['major'] == major) & (roster_data['age'] <= 22)]['gpa']
+        major_avg_gpa = np.mean(relevant_students)
+        if major_avg_gpa > max_avg_gpa:
+            max_avg_gpa = major_avg_gpa
+            best_major = major
+    return average_gpa, max_cs_gpa, students_over_3_5, average_gpa_over_25, best_major
+
+# Create the roster array as specified
+roster_data = np.array([('Alice', 21, 'CS', 3.8),
+                       ('Bob', 25, 'Math', 3.2),
+                       ('Carol', 18, 'Chem', 4.0),
+                       ('Dennis', 29, 'Phys', 3.5)],
+                       dtype=[('name', '<U50'), ('age', '<i4'), ('major', '<U4'), ('gpa', '<f8')])
+
+# Call the function and unpack the results
+avg_gpa, max_cs_gpa, gpa_over_3_5, avg_gpa_over_25, best_major = analyze_roster(roster_data)
+
+variables = [avg_gpa, max_cs_gpa, gpa_over_3_5, avg_gpa_over_25, best_major]
+for var in variables:
+    print(var)
