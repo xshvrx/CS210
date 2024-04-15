@@ -1,0 +1,31 @@
+# Write a program that reads words from a file (filename given
+# as a string parameter) and prints the occurance of each word(case insensitive). And print the words in alphabetical order.
+
+# For example, if the file contains text
+
+# Love is free
+# free is love
+# then the function should print
+
+# free:2
+# is:2
+# love:2
+
+def count_word(filename):
+    counts = {}
+    
+    with open(filename, 'r') as file:
+        for line in file:
+            # Split the line into words
+            words = line.strip().split()
+            for word in words:
+                # Convert the word to lowercase
+                word_lower = word.lower()
+                counts[word_lower] = counts.get(word_lower, 0) + 1
+    # Sort the words alphabetically
+    sorted_words = sorted(counts.items(), key=lambda x: x[0])
+
+    for word, count in sorted_words:
+        print(f"{word}:{count}")
+# Your output should look like this
+count_word('words2.txt')
