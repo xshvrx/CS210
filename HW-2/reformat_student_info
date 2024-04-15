@@ -1,0 +1,42 @@
+# Your professor asked your TA to collect student information and store it in a file called studentInfo.txt, but this TA spilled Pepsi on the keyboard while entering the data. As a result, there are extra or missing spaces and missing commas throughout the file. For example, the file has
+
+# wd50,WillDavidson, 090,3
+# hpj4332, Helen              Jordan1983.88
+# xd222XavierDavies1983.65
+# ad12  AdDavies1983.65
+# Suppose the file contains netID, name, major, and GPA in that order. Can you help this TA make the file more readable? 
+
+# To accomplish this task, you may assume the following about each field: 
+# netID: begins with 2-3 lowercase letters followed by 1-4 digits (e.g., wd1, wxo001, tsy1234)
+# name: contains both first name and last name with their first letter capitalized (e.g., "John   Doe", "MarySmith"). There may be zero or more spaces between the first name and last name. 
+# major: 3-digit code (e.g., 198)
+# GPA: floating point number between 0.0 and 4.0 (inclusive). There may or may not be a decimal point (e.g., 3.0 or 3). 
+
+# Write a function called reformat_student_info to convert a file into a standard format, which has exactly one comma followed by one space to separate each field. The function should accept a filename string parameter. Write the cleaned data to a new file called studentInfoReformatted.csv and format the file as follows:
+
+# netID, name, major, GPA
+
+# There should be exactly one comma followed by one space to separate each field. The name field should include exactly one space between first name and last name, and the GPA should have a decimal even if the GPA from the input file does not (e.g., 3.0 instead of 3). 
+
+# The reformatted file for the sample above should look like this: 
+
+# wd50, Will Davidson, 090, 3.0
+# hpj4332, Helen Jordan, 198, 3.88
+# xd222, Xavier Davies, 198, 3.65
+# ad12, Ad Davies, 198, 3.65
+
+def reformat_student_info(filename):
+    with open(filename, 'r') as input_file, open('studentInfoReformatted.csv', 'w') as output_file:
+        for line in input_file:
+            line = line.strip()  # Remove leading and trailing whitespace
+            parts = line.split(',')  # Split the line by commas
+
+            # Ensure that there are at least four parts
+            if len(parts) >= 4:
+                # Extract the netID, name, major, and GPA
+                netID = parts[0].strip()
+                name = ' '.join(parts[1:-2]).strip()
+                major = parts[-2].strip()
+                GPA = float(parts[-1])
+                
+                output_file.write(f"{netID}, {name}, {major}, {GPA:.1f}\n")
